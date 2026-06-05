@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogesh Barmase | Embedded Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --bg2: #111720;
+    --bg3: #161d28;
+    --card: #131a24;
+    --border: rgba(0,200,150,0.15);
+    --border2: rgba(0,200,150,0.3);
+    --accent: #00c896;
+    --accent2: #00a8ff;
+    --accent3: #ff6b35;
+    --text: #e8edf5;
+    --muted: #7a8899;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0; opacity:0.4;
+  }
+
+  /* ─── GRID BACKGROUND ─── */
+  body::after {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(0,200,150,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,150,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events:none; z-index:0;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding: 1rem 2rem;
+    display:flex; align-items:center; justify-content:space-between;
+    backdrop-filter: blur(20px);
+    background: rgba(10,14,20,0.8);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display:flex; gap:2rem; list-style:none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration:none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent) !important;
+    border: 1px solid var(--border2) !important;
+    padding: 6px 16px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position:relative; z-index:1;
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top: 6rem;
+    max-width:none;
+    padding-left: max(2rem, calc(50vw - 540px));
+    padding-right: max(2rem, calc(50vw - 540px));
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display:flex; align-items:center; gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content:'';
+    display:block; width:40px; height:1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .hero-title .blink {
+    color: var(--accent);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink { 50%{opacity:0} }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display:flex; gap:1rem; flex-wrap:wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration:none;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: var(--mono);
+    font-size: 13px;
+    border: 1px solid var(--border2);
+    color: var(--accent);
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration:none;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-outline:hover { background: rgba(0,200,150,0.1); transform: translateY(-2px); }
+
+  .hero-stats {
+    margin-top: 5rem;
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap:1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 3rem;
+  }
+
+  .stat {
+    display:flex; flex-direction:column; gap:4px;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height:1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display:flex; align-items:center; gap:1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title strong { font-weight: 600; }
+
+  .section-line {
+    flex:1; height:1px;
+    background: linear-gradient(to right, var(--border2), transparent);
+  }
+
+  /* ─── ABOUT ─── */
+  #about .about-grid {
+    display:grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items:start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .about-text p strong { color: var(--text); font-weight:500; }
+
+  .contact-info {
+    margin-top: 2rem;
+    display:flex; flex-direction:column; gap:0.75rem;
+  }
+
+  .contact-item {
+    display:flex; align-items:center; gap:0.75rem;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .contact-item .label {
+    color: var(--accent);
+    min-width: 70px;
+  }
+
+  .contact-item a {
+    color: var(--muted);
+    text-decoration:none;
+    transition: color 0.2s;
+  }
+
+  .contact-item a:hover { color: var(--accent); }
+
+  .skills-grid {
+    display:flex; flex-direction:column; gap:1.5rem;
+  }
+
+  .skill-group h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform:uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--card);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  .tag.highlight {
+    border-color: rgba(0,200,150,0.4);
+    color: var(--accent);
+    background: rgba(0,200,150,0.08);
+  }
+
+  /* ─── EXPERIENCE ─── */
+  #experience .timeline {
+    position:relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content:'';
+    position:absolute; left:0; top:8px; bottom:8px; width:1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position:relative;
+    margin-bottom: 3rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-dot {
+    position:absolute; left:-2.5rem; top:6px;
+    width:10px; height:10px;
+    border-radius:50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 12px rgba(0,200,150,0.4);
+  }
+
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    transition: border-color 0.3s;
+  }
+
+  .timeline-card:hover { border-color: var(--border2); }
+
+  .timeline-meta {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 0.75rem; flex-wrap:wrap; gap:0.5rem;
+  }
+
+  .timeline-company {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(0,200,150,0.08);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+
+  .timeline-role {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-desc {
+    display:flex; flex-direction:column; gap:0.5rem;
+  }
+
+  .timeline-desc p {
+    font-size: 14px;
+    color: var(--muted);
+    display:flex; align-items:flex-start; gap:0.75rem;
+    font-weight:300;
+  }
+
+  .timeline-desc p::before {
+    content:'▸';
+    color: var(--accent);
+    flex-shrink:0;
+    margin-top: 3px;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects .projects-grid {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap:1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    display:flex; flex-direction:column;
+    transition: border-color 0.3s, transform 0.3s;
+    position:relative; overflow:hidden;
+  }
+
+  .project-card::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    opacity:0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-4px);
+  }
+
+  .project-card:hover::before { opacity:1; }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .project-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--muted);
+    flex:1;
+    font-weight:300;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-tech {
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+
+  .tech-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 3px;
+    background: rgba(0,168,255,0.08);
+    border: 1px solid rgba(0,168,255,0.2);
+    color: var(--accent2);
+  }
+
+  /* ─── EDUCATION ─── */
+  #education .edu-cards {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap:1.5rem;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.3s;
+  }
+
+  .edu-card:hover { border-color: var(--border2); }
+
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-degree {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-institution {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-weight:300;
+  }
+
+  .edu-score {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* ─── CERTIFICATIONS ─── */
+  #certs .cert-list {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap:1rem;
+  }
+
+  .cert-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    display:flex; align-items:center; gap:1rem;
+    transition: border-color 0.3s;
+  }
+
+  .cert-item:hover { border-color: var(--border2); }
+
+  .cert-icon {
+    width:36px; height:36px;
+    background: rgba(0,200,150,0.1);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; flex-shrink:0;
+  }
+
+  .cert-text h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .cert-text p {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* ─── HIRE SECTION ─── */
+  #hire {
+    text-align:center;
+    padding-bottom: 8rem;
+  }
+
+  .hire-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4rem 3rem;
+    position:relative; overflow:hidden;
+  }
+
+  .hire-box::before {
+    content:'';
+    position:absolute; top:-60px; right:-60px;
+    width:200px; height:200px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(0,200,150,0.12), transparent 70%);
+    pointer-events:none;
+  }
+
+  .hire-box::after {
+    content:'';
+    position:absolute; bottom:-60px; left:-60px;
+    width:200px; height:200px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(0,168,255,0.08), transparent 70%);
+    pointer-events:none;
+  }
+
+  .available-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(0,200,150,0.08);
+    border: 1px solid var(--border2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+
+  .available-dot {
+    width:8px; height:8px;
+    border-radius:50%; background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100%{opacity:1; transform:scale(1)}
+    50%{opacity:0.5; transform:scale(0.8)}
+  }
+
+  .hire-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .hire-title strong { font-weight: 600; color: var(--accent); }
+
+  .hire-sub {
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    font-weight:300;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position:relative; z-index:1;
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:1rem;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  footer p span { color: var(--accent); }
+
+  .footer-links {
+    display:flex; gap:1.5rem;
+  }
+
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration:none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity:0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity:1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:768px) {
+    #about .about-grid { grid-template-columns:1fr; gap:2rem; }
+    nav { padding: 1rem; }
+    .nav-links { display:none; }
+    section { padding: 4rem 1.25rem; }
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width:5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius:10px; }
+
+  /* ─── GLITCH ANIMATION ─── */
+  @keyframes glitch {
+    0%,90%,100% { clip-path: none; transform: none; }
+    92% { clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); transform: translateX(-4px); }
+    94% { clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); transform: translateX(4px); }
+    96% { clip-path: none; transform: none; }
+  }
+
+  .glitch { animation: glitch 4s infinite; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">YB.embedded</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#hire" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Embedded Systems Engineer</div>
+  <h1 class="hero-name glitch">Yogesh<br><span>Barmase</span></h1>
+  <p class="hero-title">// Firmware · Hardware · Industrial Automation <span class="blink">_</span></p>
+  <p class="hero-desc">
+    Building reliable embedded systems from bare-metal firmware to industrial-grade hardware. Specialized in microcontrollers, communication protocols, and PCB design.
+  </p>
+  <div class="hero-actions">
+    <a href="#hire" class="btn-primary">Hire Me for Your Project</a>
+    <a href="#projects" class="btn-outline">View Projects</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-value">3+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">5+</span>
+      <span class="stat-label">MCUs Worked On</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Companies</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">C</span>
+      <span class="stat-label">Primary Language</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About <strong>Me</strong></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm an <strong>Embedded Systems Engineer</strong> with hands-on experience across the full hardware-software stack — from bare-metal firmware and custom bootloaders to PCB design and RF circuit testing.</p>
+      <p>Currently working at <strong>Gangalaxmi Agrotech Limited</strong>, developing embedded systems for industrial automation. Previously at <strong>Masibus Automation</strong> building instrumentation firmware, and completed a specialized apprenticeship at <strong>ISRO's Space Application Centre</strong>.</p>
+      <p>Open to <strong>freelance projects</strong> in embedded firmware, IoT systems, industrial instrumentation, and PCB design. I bring a detail-oriented, hardware-aware mindset to every project.</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="label">📞 Phone</span>
+          <a href="tel:+917869767102">+91 7869767102</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">✉️ Email</span>
+          <a href="mailto:yogeshbarmase715@gmail.com">yogeshbarmase715@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">🔗 LinkedIn</span>
+          <a href="https://www.linkedin.com/in/yogesh-barmase" target="_blank">linkedin.com/in/yogesh-barmase</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">📍 Location</span>
+          <span style="color:var(--muted)">India (Remote Available)</span>
+        </div>
+      </div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <h4>Microcontrollers</h4>
+        <div class="skill-tags">
+          <span class="tag highlight">Renesas RA2A1</span>
+          <span class="tag highlight">ESP32</span>
+          <span class="tag highlight">ATmega128</span>
+          <span class="tag highlight">Arduino UNO</span>
+          <span class="tag">Raspberry Pi 4B</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Protocols</h4>
+        <div class="skill-tags">
+          <span class="tag highlight">I2C</span>
+          <span class="tag highlight">SPI</span>
+          <span class="tag highlight">UART</span>
+          <span class="tag">4-20mA</span>
+          <span class="tag">Modbus</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Languages & Tools</h4>
+        <div class="skill-tags">
+          <span class="tag highlight">C</span>
+          <span class="tag highlight">C++</span>
+          <span class="tag">Python</span>
+          <span class="tag">e2 Studio</span>
+          <span class="tag">OrCAD Capture CIS</span>
+          <span class="tag">OrCAD PSpice</span>
+          <span class="tag">CADStar</span>
+          <span class="tag">ADS</span>
+          <span class="tag">Proteus</span>
+          <span class="tag">MultiSim</span>
+          <span class="tag">Node-RED</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Hardware Design</h4>
+        <div class="skill-tags">
+          <span class="tag highlight">PCB Design</span>
+          <span class="tag">RF Circuits</span>
+          <span class="tag">Analog Circuits</span>
+          <span class="tag">Signal Conditioning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Work <strong>Experience</strong></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-meta">
+          <span class="timeline-company">Gangalaxmi Agrotech Limited</span>
+          <span class="timeline-period">Apr 2025 – Present</span>
+        </div>
+        <p class="timeline-role">// Embedded Engineer</p>
+        <div class="timeline-desc">
+          <p>Developing and testing embedded systems for industrial automation applications.</p>
+          <p>Working on microcontroller-based control systems with real-time requirements.</p>
+          <p>Responsible for firmware development, hardware integration, and system validation.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-meta">
+          <span class="timeline-company">Masibus Automation and Instrumentation Pvt. Ltd.</span>
+          <span class="timeline-period">Feb 2023 – Mar 2025</span>
+        </div>
+        <p class="timeline-role">// Embedded Firmware Engineer</p>
+        <div class="timeline-desc">
+          <p>Wrote embedded firmware in C with deep knowledge of design and development workflows for instrumentation products.</p>
+          <p>Hands-on experience with IP protocols: I2C, SPI, UART and hardware subsystems integration.</p>
+          <p>Worked with OrCAD Capture CIS and OrCAD PSpice for circuit design and simulation.</p>
+          <p>Developed firmware for DC Energy Meter used in telecom tower applications.</p>
+          <p>Added Data Logging feature to AC Energy Meter firmware.</p>
+          <p>Designed analog-based Vibration Sensor with 4–20mA output standard.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-meta">
+          <span class="timeline-company">Space Application Centre (ISRO), Ahmedabad</span>
+          <span class="timeline-period">Feb 2022 – Feb 2023</span>
+        </div>
+        <p class="timeline-role">// Apprentice Engineer</p>
+        <div class="timeline-desc">
+          <p>PCB designing, assembly of RF circuits, and testing of Ku Band FG main and Redundant FM units.</p>
+          <p>Actively involved in microwave circuit testing procedures.</p>
+          <p>Hands-on experience with CADStar and ADS (Advanced Design System) EDA tools.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Key <strong>Projects</strong></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <span class="project-num">// P-01</span>
+      <h3 class="project-name">Custom Bootloader — Renesas RA2A1</h3>
+      <p class="project-desc">Developed a custom bootloader from scratch for the Renesas RA2A1 microcontroller. Enables firmware update over serial interface with CRC validation for data integrity.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Renesas RA2A1</span>
+        <span class="tech-pill">C</span>
+        <span class="tech-pill">e2 Studio</span>
+        <span class="tech-pill">UART</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-num">// P-02</span>
+      <h3 class="project-name">DC Energy Meter — Telecom Tower</h3>
+      <p class="project-desc">Designed and developed a DC Energy Meter specifically for telecom tower applications. Measures voltage, current, power, and energy with high accuracy and Modbus communication.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Embedded C</span>
+        <span class="tech-pill">Modbus</span>
+        <span class="tech-pill">ADC</span>
+        <span class="tech-pill">UART</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-num">// P-03</span>
+      <h3 class="project-name">Analog Vibration Sensor (4–20mA)</h3>
+      <p class="project-desc">Completely analog-based vibration sensor with industry-standard 4–20mA current loop output. Designed for harsh industrial environments with long cable runs. Custom signal conditioning circuits.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Analog Design</span>
+        <span class="tech-pill">4-20mA</span>
+        <span class="tech-pill">OrCAD PSpice</span>
+        <span class="tech-pill">PCB Design</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-num">// P-04</span>
+      <h3 class="project-name">AC Energy Meter — Data Logging Feature</h3>
+      <p class="project-desc">Added a comprehensive data logging feature to an existing AC Energy Meter product. Logs energy consumption, timestamps, and events to internal flash memory with retrieval protocol.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Embedded C</span>
+        <span class="tech-pill">Flash Memory</span>
+        <span class="tech-pill">I2C</span>
+        <span class="tech-pill">Firmware</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-num">// P-05</span>
+      <h3 class="project-name">Smart Energy Meter Surveillance (IoT)</h3>
+      <p class="project-desc">IoT-based energy meter that reports meter readings, units consumed, and billing amount via SMS and web server in real time. Enables remote monitoring without physical inspection.</p>
+      <div class="project-tech">
+        <span class="tech-pill">ESP32</span>
+        <span class="tech-pill">IoT</span>
+        <span class="tech-pill">MQTT</span>
+        <span class="tech-pill">Web Server</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-num">// P-06</span>
+      <h3 class="project-name">Temperature Monitoring System</h3>
+      <p class="project-desc">Real-time temperature monitoring system that samples every 10 seconds using LM35 sensor, triggers email alerts when thresholds are exceeded, and logs data to cloud dashboard.</p>
+      <div class="project-tech">
+        <span class="tech-pill">Arduino</span>
+        <span class="tech-pill">LM35</span>
+        <span class="tech-pill">Bolt IoT</span>
+        <span class="tech-pill">Node-RED</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Education &amp; <strong>Training</strong></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-cards">
+    <div class="edu-card reveal">
+      <p class="edu-year">2016 – 2020</p>
+      <h3 class="edu-degree">B.E. Electronics &amp; Communication</h3>
+      <p class="edu-institution">Sagar Institute of Research and Technology, Bhopal</p>
+      <span class="edu-score">80.3%</span>
+    </div>
+    <div class="edu-card reveal">
+      <p class="edu-year">2015 – 2016</p>
+      <h3 class="edu-degree">12th — Senior Secondary</h3>
+      <p class="edu-institution">R.D. Higher Secondary School, Pandhurna, M.P.</p>
+      <span class="edu-score">78.4%</span>
+    </div>
+    <div class="edu-card reveal">
+      <p class="edu-year">2013 – 2014</p>
+      <h3 class="edu-degree">10th — Secondary</h3>
+      <p class="edu-institution">R.D. Higher Secondary School, Pandhurna, M.P.</p>
+      <span class="edu-score">68.66%</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Certifications &amp; <strong>Training</strong></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cert-list">
+    <div class="cert-item reveal">
+      <div class="cert-icon">⚙️</div>
+      <div class="cert-text">
+        <h4>PLC &amp; SCADA Training</h4>
+        <p>Sofcon Indian Pvt Ltd., Bhopal · Jun–Jul 2019</p>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">🌐</div>
+      <div class="cert-text">
+        <h4>IoT (Internet of Things)</h4>
+        <p>Internshala Training (Online) · Dec 2018–Jan 2019</p>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">📊</div>
+      <div class="cert-text">
+        <h4>Digital Marketing</h4>
+        <p>Certification Course</p>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">🔧</div>
+      <div class="cert-text">
+        <h4>Circuit &amp; PCB Design Workshop</h4>
+        <p>Embedvision Infotech Pvt. Ltd., Bhopal</p>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">💡</div>
+      <div class="cert-text">
+        <h4>IoT with Arduino Workshop</h4>
+        <p>Appin Technology, Bhopal</p>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">🏆</div>
+      <div class="cert-text">
+        <h4>NCC 'A' Certificate</h4>
+        <p>National Cadet Corps · 2012–2014</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIRE -->
+<section id="hire">
+  <div class="hire-box reveal">
+    <div class="available-badge">
+      <span class="available-dot"></span>
+      Available for Freelance
+    </div>
+    <h2 class="hire-title">Let's Build Something <strong>Together</strong></h2>
+    <p class="hire-sub">Looking for an embedded engineer for your IoT product, industrial automation system, or firmware project? Let's talk.</p>
+    <div class="hero-actions" style="justify-content:center; gap:1rem;">
+      <a href="mailto:yogeshbarmase715@gmail.com" class="btn-primary">📧 Email Me</a>
+      <a href="https://www.linkedin.com/in/yogesh-barmase" target="_blank" class="btn-outline">🔗 LinkedIn</a>
+      <a href="tel:+917869767102" class="btn-outline">📞 Call Me</a>
+    </div>
+    <div style="margin-top:3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1.5rem; text-align:left;">
+      <div style="padding:1.25rem; background:rgba(0,200,150,0.05); border:1px solid var(--border); border-radius:8px;">
+        <p style="font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:6px;">SPECIALITY</p>
+        <p style="font-size:13px;color:var(--muted);font-weight:300;">Firmware Development</p>
+      </div>
+      <div style="padding:1.25rem; background:rgba(0,200,150,0.05); border:1px solid var(--border); border-radius:8px;">
+        <p style="font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:6px;">SPECIALITY</p>
+        <p style="font-size:13px;color:var(--muted);font-weight:300;">PCB Design</p>
+      </div>
+      <div style="padding:1.25rem; background:rgba(0,200,150,0.05); border:1px solid var(--border); border-radius:8px;">
+        <p style="font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:6px;">SPECIALITY</p>
+        <p style="font-size:13px;color:var(--muted);font-weight:300;">IoT Systems</p>
+      </div>
+      <div style="padding:1.25rem; background:rgba(0,200,150,0.05); border:1px solid var(--border); border-radius:8px;">
+        <p style="font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:6px;">SPECIALITY</p>
+        <p style="font-size:13px;color:var(--muted);font-weight:300;">Industrial Automation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Yogesh Barmase</span> · Embedded Systems Engineer</p>
+  <div class="footer-links">
+    <a href="mailto:yogeshbarmase715@gmail.com">Email</a>
+    <a href="tel:+917869767102">Phone</a>
+    <a href="https://www.linkedin.com/in/yogesh-barmase" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
